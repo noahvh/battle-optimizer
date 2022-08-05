@@ -11,9 +11,6 @@ public class Team {
     public String name = "";
 
     public Team(int[] playerTeam) {
-        if (playerTeam.length != 9)
-            throw new IllegalArgumentException("Team array must be of size 9");
-
         if (playerTeam[0] > 0) originalUnits.add(Unit.createUnit(Unit.MILITIA, playerTeam[0]));
         if (playerTeam[1] > 0) originalUnits.add(Unit.createUnit(Unit.SOLDIER, playerTeam[1]));
         if (playerTeam[2] > 0) originalUnits.add(Unit.createUnit(Unit.KNIGHT, playerTeam[2]));
@@ -61,10 +58,6 @@ public class Team {
 
     public void takeDamage(Attack attack) {
         if (totalHp == 0) return;
-
-        if (units.size() == 0 || flankingTargets.size() == 0) {
-            System.out.println("Halt!");
-        }
 
         int power = attack.power();
         int amount = attack.amount();
@@ -133,10 +126,12 @@ public class Team {
     }
 
     public Unit getTarget(boolean flanking) {
-        if (flanking)
+        if (flanking && flankingTargets.size() > 0)
             return flankingTargets.get(0);
-        else
+        else if (units.size() > 0)
             return units.get(0);
+        else
+            return null;
     }
 
     public Unit getUnit(int i) {

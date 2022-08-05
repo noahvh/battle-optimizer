@@ -56,7 +56,7 @@ public class Optimizer {
 
                 BattleReport newReport = BattleReport.getBattleReport(new Team(playerComp), orcs);
 
-                //System.out.println("TEST " + Arrays.toString(playerComp) + "(" + pop + ") " + newReport);
+                // System.out.println("TEST " + Arrays.toString(playerComp) + "(" + pop + ") " + newReport);
 
                 if (newReport.betterThan(bestTweakReport)) {
                     bestTweakReport = newReport;
@@ -79,7 +79,7 @@ public class Optimizer {
                     playerComp[j]++;
 
                     BattleReport newReport = BattleReport.getBattleReport(new Team(playerComp), orcs);
-                    //System.out.println("TEST " + Arrays.toString(playerComp) + "(" + pop + ") " + newReport);
+                    // System.out.println("TEST " + Arrays.toString(playerComp) + "(" + pop + ") " + newReport);
 
                     if (newReport.betterThan(bestSwapReport)) {
                         bestSwapReport = newReport;
@@ -138,7 +138,6 @@ public class Optimizer {
         return report.toString();
     }
 
-    private static int[] startingComp = {5, 5, 5, 5, 5, 5, 5, 5, 5};
     public static void main(String[] args) {
         HashMap<Integer, Integer> orcReq = new HashMap<>();
 

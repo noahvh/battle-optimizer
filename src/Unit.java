@@ -50,9 +50,6 @@ public class Unit {
     }
 
     public void damage(int damage) {
-        if (damage > hp) {
-            System.out.println("Halt!");
-        }
         hp -= damage;
     }
 

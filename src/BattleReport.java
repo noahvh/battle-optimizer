@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 public record BattleReport(double additionalTime, int paragonLoss, int orcLoss) {
     public double cost() {
@@ -18,7 +16,6 @@ public record BattleReport(double additionalTime, int paragonLoss, int orcLoss) 
     }
 
     public static BattleReport getBattleReport(Team paragons, Team orcs) {
-        long start = System.nanoTime();
         int phase = 0;
 
         double additionalTime =
@@ -52,14 +49,6 @@ public record BattleReport(double additionalTime, int paragonLoss, int orcLoss) 
             phase++;
         }
 
-        int[] remainingParagons = new int[13];
-        for (int i = 0; i < paragons.getSize(); i++)
-            remainingParagons[paragons.getUnit(i).order] = paragons.getUnit(i).getCount();
-
-        int[] remainingOrcs = new int[13];
-        for (int i = 0; i < orcs.getSize(); i++)
-            remainingOrcs[orcs.getUnit(i).order] = orcs.getUnit(i).getCount();
-
         int paragonLoss = paragonInitialValue - paragons.getTotalValue();
         int orcLoss = orcInitialValue - orcs.getTotalValue();
 
@@ -67,19 +56,5 @@ public record BattleReport(double additionalTime, int paragonLoss, int orcLoss) 
         orcs.recover();
 
         return new BattleReport(additionalTime, paragonLoss, orcLoss);
-    }
-
-    public static void main(String[] args) {
-        HashMap<Integer, Integer> paragonReq = new HashMap<>();
-        paragonReq.put(Unit.CUIRASSIER, 30);
-        paragonReq.put(Unit.CANNON, 50);
-        Team paragons = new Team(paragonReq);
-
-        HashMap<Integer, Integer> orcReq = new HashMap<>();
-        orcReq.put(Unit.KNIGHT, 37);
-        orcReq.put(Unit.CUIRASSIER, 113);
-        Team orcs = new Team(orcReq);
-
-        getBattleReport(paragons, orcs);
     }
 }
