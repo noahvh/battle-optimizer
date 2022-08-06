@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public record BattleReport(double additionalTime, int paragonLoss, int orcLoss) {
     public double cost() {
-        return additionalTime + 100 * paragonLoss;
+        return additionalTime + 20 * paragonLoss;
     }
 
     public String toString() {

@@ -16,11 +16,10 @@ public class Optimizer {
         int bestSquads = -1;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                playerComp[i] = pop/2;
-                playerComp[j] = pop/2;
+                playerComp[i] += pop/2;
+                playerComp[j] += pop/2;
 
                 BattleReport newReport = BattleReport.getBattleReport(new Team(playerComp), orcs);
-
                 if (newReport.betterThan(bestInitialReport)) {
                     bestInitialReport = newReport;
                     bestSquads = i * 9 + j;
@@ -146,12 +145,12 @@ public class Optimizer {
 
             orcReq.put(Unit.MILITIA, 0);
             orcReq.put(Unit.SOLDIER, 0);
-             orcReq.put(Unit.KNIGHT, 26);
+             orcReq.put(Unit.KNIGHT, 0);
          orcReq.put(Unit.CUIRASSIER, 0);
-            orcReq.put(Unit.CAVALRY, 18);
+            orcReq.put(Unit.CAVALRY, 0);
              orcReq.put(Unit.ARCHER, 0);
-            orcReq.put(Unit.LONGBOW, 0);
-           orcReq.put(Unit.CROSSBOW, 52);
+            orcReq.put(Unit.LONGBOW, 139);
+           orcReq.put(Unit.CROSSBOW, 137);
              orcReq.put(Unit.CANNON, 0);
             orcReq.put(Unit.DURGASH, 0);
 
