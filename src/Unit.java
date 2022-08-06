@@ -92,23 +92,21 @@ public class Unit {
         };
     }
 
-    public static Unit createUnit(int type, int count) {
+    public static Unit createUnit(int type, int count, double crit) {
         return switch (type) {
-            case MILITIA -> new Unit(count, 15, 5, 0, 1, 1, 0, false, false, false, true, false);
-            case SOLDIER -> new Unit(count, 40, 15, 0, 8, 1, 1, false, false, false, true, false);
-            case KNIGHT -> new Unit(count, 90, 20, 0, 64, 3, 2, false, false, false, true, false);
-            case CUIRASSIER -> new Unit(count, 120, 10, 0, 128, 4, 3, false, false, false, true, false);
-            case CAVALRY -> new Unit(count, 5, 5, 0, 16, 2, 5, true, false, true, false, false);
-            case ARCHER -> new Unit(count, 10, 20, 0, 4, 1, 6, false, false, false, true, false);
-            case LONGBOW -> new Unit(count, 10, 15, 0, 32, 2, 7, false, false, true, false, true);
-            case CROSSBOW -> new Unit(count, 15, 90, 0, 64, 3, 8, false, false, false, true, false);
-            case CANNON -> new Unit(count, 60, 80, 0, 128, 4, 9, true, true, false, false, true);
-            // crits are mostly not calculated, but because of how simple trample damage is I figure I may as well just multiply boss trample attacks by (1 + crit chance) here.
-            // also yes there is a crit field but it's currently not used
-            case MAZOGA -> new Unit(count, 120000, 150, 0, 999999, 200, 4, false, true, false, false, true);
-            case BULA -> new Unit(count, 5000, 225, 0, 999999, 100, 10, false, true, false, false, true);
-            case AGUK -> new Unit(count, 11000, 450, 0, 999999, 150, 11, false, true, false, false, true);
-            case DURGASH -> new Unit(count, 40000, 750, 0, 999999, 300, 12, false, true, true, false, false);
+            case MILITIA -> new Unit(count, 15, 5, crit, 1, 1, 0, false, false, false, true, false);
+            case SOLDIER -> new Unit(count, 40, 15, crit, 8, 1, 1, false, false, false, true, false);
+            case KNIGHT -> new Unit(count, 90, 20, crit, 64, 3, 2, false, false, false, true, false);
+            case CUIRASSIER -> new Unit(count, 120, 10, crit, 128, 4, 3, false, false, false, true, false);
+            case CAVALRY -> new Unit(count, 5, 5, crit, 16, 2, 5, true, false, true, false, false);
+            case ARCHER -> new Unit(count, 10, 20, crit, 4, 1, 6, false, false, false, true, false);
+            case LONGBOW -> new Unit(count, 10, 15, crit, 32, 2, 7, false, false, true, false, true);
+            case CROSSBOW -> new Unit(count, 15, 90, crit, 64, 3, 8, false, false, false, true, false);
+            case CANNON -> new Unit(count, 60, 80, crit, 128, 4, 9, true, true, false, false, true);
+            case MAZOGA -> new Unit(count, 120000, 100, 0.5, 999999, 200, 4, false, true, false, false, true);
+            case BULA -> new Unit(count, 5000, 150, 0.5, 999999, 100, 10, false, true, false, false, true);
+            case AGUK -> new Unit(count, 11000, 300, 0.5, 999999, 150, 11, false, true, false, false, true);
+            case DURGASH -> new Unit(count, 40000, 500, 0.5, 999999, 300, 12, false, true, true, false, false);
             default -> null;
         };
     }

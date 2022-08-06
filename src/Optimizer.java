@@ -147,15 +147,14 @@ public class Optimizer {
             orcReq.put(Unit.SOLDIER, 0);
              orcReq.put(Unit.KNIGHT, 0);
          orcReq.put(Unit.CUIRASSIER, 0);
-            orcReq.put(Unit.CAVALRY, 0);
+            orcReq.put(Unit.CAVALRY, 999);
              orcReq.put(Unit.ARCHER, 0);
-            orcReq.put(Unit.LONGBOW, 139);
-           orcReq.put(Unit.CROSSBOW, 137);
+            orcReq.put(Unit.LONGBOW, 0);
+           orcReq.put(Unit.CROSSBOW, 0);
              orcReq.put(Unit.CANNON, 0);
             orcReq.put(Unit.DURGASH, 0);
 
         Team orcs = new Team(orcReq);
-        orcs.setWeak(false);
 
         long start = System.currentTimeMillis();
 
@@ -164,6 +163,8 @@ public class Optimizer {
         System.out.println("Total Starting Orc Value: " + orcs.getTotalValue());
 
         System.out.println(getPlayerCompReport(comp));
+
+        BattleReport.getBattleReport(new Team(comp), orcs);
 
         System.out.println(System.currentTimeMillis() - start);
     }

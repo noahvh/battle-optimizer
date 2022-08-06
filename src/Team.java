@@ -7,27 +7,28 @@ public class Team {
     private final ArrayList<Unit> units = new ArrayList<>();
     private final ArrayList<Unit> flankingTargets = new ArrayList<>();
     private int totalHp = 0;
-    private boolean weak = true;
+    public static boolean critsEnabled = true;
     public String name = "";
 
     public Team(int[] playerTeam) {
-        if (playerTeam[0] > 0) originalUnits.add(Unit.createUnit(Unit.MILITIA, playerTeam[0]));
-        if (playerTeam[1] > 0) originalUnits.add(Unit.createUnit(Unit.SOLDIER, playerTeam[1]));
-        if (playerTeam[2] > 0) originalUnits.add(Unit.createUnit(Unit.KNIGHT, playerTeam[2]));
-        if (playerTeam[3] > 0) originalUnits.add(Unit.createUnit(Unit.CUIRASSIER, playerTeam[3]));
-        if (playerTeam[4] > 0) originalUnits.add(Unit.createUnit(Unit.CAVALRY, playerTeam[4]));
-        if (playerTeam[5] > 0) originalUnits.add(Unit.createUnit(Unit.ARCHER, playerTeam[5]));
-        if (playerTeam[6] > 0) originalUnits.add(Unit.createUnit(Unit.LONGBOW, playerTeam[6]));
-        if (playerTeam[7] > 0) originalUnits.add(Unit.createUnit(Unit.CROSSBOW, playerTeam[7]));
-        if (playerTeam[8] > 0) originalUnits.add(Unit.createUnit(Unit.CANNON, playerTeam[8]));
+        if (playerTeam[0] > 0) originalUnits.add(Unit.createUnit(Unit.MILITIA, playerTeam[0], 0.8));
+        if (playerTeam[1] > 0) originalUnits.add(Unit.createUnit(Unit.SOLDIER, playerTeam[1], 0.8));
+        if (playerTeam[2] > 0) originalUnits.add(Unit.createUnit(Unit.KNIGHT, playerTeam[2], 0.8));
+        if (playerTeam[3] > 0) originalUnits.add(Unit.createUnit(Unit.CUIRASSIER, playerTeam[3], 0.8));
+        if (playerTeam[4] > 0) originalUnits.add(Unit.createUnit(Unit.CAVALRY, playerTeam[4], 0.8));
+        if (playerTeam[5] > 0) originalUnits.add(Unit.createUnit(Unit.ARCHER, playerTeam[5], 0.8));
+        if (playerTeam[6] > 0) originalUnits.add(Unit.createUnit(Unit.LONGBOW, playerTeam[6], 0.8));
+        if (playerTeam[7] > 0) originalUnits.add(Unit.createUnit(Unit.CROSSBOW, playerTeam[7], 0.8));
+        if (playerTeam[8] > 0) originalUnits.add(Unit.createUnit(Unit.CANNON, playerTeam[8], 0.8));
 
         recover();
     }
 
-    public Team(HashMap<Integer, Integer> allocation) {
-        for (var entry : allocation.entrySet()) {
+    public Team(HashMap<Integer, Integer> orcAllocation) {
+        for (var entry : orcAllocation.entrySet()) {
             if (entry.getValue() == 0) continue;
-            Unit newUnit = Unit.createUnit(entry.getKey(), entry.getValue());
+            double crit = (entry.getKey() == 4 || entry.getKey() > 9) ? 0.5 : 0.6;
+            Unit newUnit = Unit.createUnit(entry.getKey(), entry.getValue(), crit);
             originalUnits.add(newUnit);
             units.add(newUnit);
             flankingTargets.add(newUnit);
@@ -52,18 +53,14 @@ public class Team {
         flankingTargets.sort(Comparator.comparing(Unit::getFlankingPriority));
     }
 
-    public void setWeak(boolean weak) {
-        this.weak = weak;
-    }
-
     public void takeDamage(Attack attack) {
         if (totalHp == 0) return;
 
         int power = attack.power();
         int amount = attack.amount();
 
-        // if (weak && attack.flanking()) amount *= 2;
-        // if (weak && !attack.flanking()) power *= 2;
+        if (critsEnabled && power <= 5) amount = (int) (amount * (1 + attack.crit()));
+        else if (critsEnabled) power = (int) (power * (1 + attack.crit()));
 
         boolean flanking = attack.flanking();
         Unit target = getTarget(flanking);
