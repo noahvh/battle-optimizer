@@ -6,7 +6,7 @@ public record BattleReport(double additionalTime, int paragonLoss, int orcLoss) 
     }
 
     public String toString() {
-        return "Additional time: " + String.format("%.4f", additionalTime) + ", Paragon Loss: " + paragonLoss + ", Orc Loss: " + orcLoss + ", Cost: " + cost();
+        return "Additional time: " + String.format("%.2f", additionalTime) + ", Paragon Loss: " + paragonLoss + ", Orc Loss: " + orcLoss + ", Cost: " + (int)cost();
     }
 
     public boolean betterThan(BattleReport that) {

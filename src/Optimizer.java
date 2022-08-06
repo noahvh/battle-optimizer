@@ -10,13 +10,14 @@ public class Optimizer {
         int[] playerComp = new int[9];
 
         int pop = Math.min(maxPop, orcs.getPopulation() & ~1);
+        if (pop == 0) pop = 100;
 
         BattleReport bestInitialReport = BattleReport.getBattleReport(new Team(playerComp), orcs);
         int bestSquads = -1;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                playerComp[i] += pop/2;
-                playerComp[j] += pop/2;
+                playerComp[i] = pop/2;
+                playerComp[j] = pop/2;
 
                 BattleReport newReport = BattleReport.getBattleReport(new Team(playerComp), orcs);
 
@@ -25,13 +26,15 @@ public class Optimizer {
                     bestSquads = i * 9 + j;
                 }
 
-                playerComp[i] -= pop/2;
-                playerComp[j] -= pop/2;
+                playerComp[i] = 0;
+                playerComp[j] = 0;
             }
         }
 
-        playerComp[bestSquads / 9] += pop/2;
-        playerComp[bestSquads % 9] += pop/2;
+        if (bestSquads >= 0) {
+            playerComp[bestSquads / 9] += pop/2;
+            playerComp[bestSquads % 9] += pop/2;
+        }
 
         BattleReport bestTweakReport = BattleReport.getBattleReport(new Team(playerComp), orcs);
         BattleReport bestSwapReport = BattleReport.getBattleReport(new Team(playerComp), orcs);
@@ -143,13 +146,14 @@ public class Optimizer {
 
             orcReq.put(Unit.MILITIA, 0);
             orcReq.put(Unit.SOLDIER, 0);
-             orcReq.put(Unit.KNIGHT, 0);
+             orcReq.put(Unit.KNIGHT, 26);
          orcReq.put(Unit.CUIRASSIER, 0);
-            orcReq.put(Unit.CAVALRY, 0);
+            orcReq.put(Unit.CAVALRY, 18);
              orcReq.put(Unit.ARCHER, 0);
-            orcReq.put(Unit.LONGBOW, 38);
-           orcReq.put(Unit.CROSSBOW, 0);
+            orcReq.put(Unit.LONGBOW, 0);
+           orcReq.put(Unit.CROSSBOW, 52);
              orcReq.put(Unit.CANNON, 0);
+            orcReq.put(Unit.DURGASH, 0);
 
         Team orcs = new Team(orcReq);
         orcs.setWeak(false);
@@ -163,8 +167,6 @@ public class Optimizer {
         System.out.println(getPlayerCompReport(comp));
 
         System.out.println(System.currentTimeMillis() - start);
-
-        System.out.println(BattleReport.getBattleReport(new Team(comp), orcs));
     }
 
 }
