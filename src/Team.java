@@ -59,7 +59,7 @@ public class Team {
         int power = attack.power();
         int amount = attack.amount();
 
-        if (critsEnabled && power <= 5) amount = (int) (amount * (1 + attack.crit()));
+        if (critsEnabled && power == 1) amount = (int) (amount * (1 + attack.crit()));
         else if (critsEnabled) power = (int) (power * (1 + attack.crit()));
 
         boolean flanking = attack.flanking();
