@@ -7,7 +7,7 @@ public class Team {
     private final ArrayList<Unit> units = new ArrayList<>();
     private final ArrayList<Unit> flankingTargets = new ArrayList<>();
     private int totalHp = 0;
-    public static boolean critsEnabled = true;
+    public static boolean critsEnabled = false;
     public String name = "";
 
     public Team(int[] playerTeam) {
