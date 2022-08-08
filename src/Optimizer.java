@@ -119,7 +119,7 @@ public class Optimizer {
                 bestTweakReport = bestSwapReport;
             }
 
-            System.out.println("BEST " + Arrays.toString(playerComp) + "(" + pop + ") " + bestTweakReport);
+            // System.out.println("BEST " + Arrays.toString(playerComp) + "(" + pop + ") " + bestTweakReport);
         }
 
         return playerComp;
@@ -140,14 +140,19 @@ public class Optimizer {
         return report.toString();
     }
 
+    public static String processOrcTeam(int[] comp) {
+        int[] playerTeam = getOptimalComposition(new Team(comp));
+        return getPlayerCompReport(playerTeam);
+    }
+
     public static void main(String[] args) {
         HashMap<Integer, Integer> orcReq = new HashMap<>();
 
              orcReq.put(Unit.KNIGHT, 0);
-         orcReq.put(Unit.CUIRASSIER, 0);
-            orcReq.put(Unit.CAVALRY, 193);
+         orcReq.put(Unit.CUIRASSIER, 30);
+            orcReq.put(Unit.CAVALRY, 83);
             orcReq.put(Unit.LONGBOW, 0);
-           orcReq.put(Unit.CROSSBOW, 0);
+           orcReq.put(Unit.CROSSBOW, 89);
              orcReq.put(Unit.CANNON, 0);
              orcReq.put(Unit.MAZOGA, 0);
             orcReq.put(Unit.DURGASH, 0);
