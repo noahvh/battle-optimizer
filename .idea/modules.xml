@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/autocell.iml" filepath="$PROJECT_DIR$/autocell.iml" />
+      <module fileurl="file://$PROJECT_DIR$/battle-optimizer.iml" filepath="$PROJECT_DIR$/battle-optimizer.iml" />
     </modules>
   </component>
 </project>
